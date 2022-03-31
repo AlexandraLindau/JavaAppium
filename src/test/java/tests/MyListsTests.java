@@ -61,7 +61,6 @@ public class MyListsTests extends CoreTestCase {
 
         NavigationUI navigationUI = NavigationUIFactory.get(driver);
         navigationUI.openNavigation();
-        Thread.sleep(1000);
         navigationUI.clickMyLists();
 
         MyListsPageObject myListsPageObject = MyListPageObjectFactory.get(driver);
@@ -85,14 +84,37 @@ public class MyListsTests extends CoreTestCase {
         searchPageObject.clickByArticleWithSubstring(firstArticle);
 
         ArticlePageObject articlePageObject = ArticlePageObjectFactory.get(driver);
+        if (Platform.getInstance().isIOS()) {
+            articlePageObject.waitForTitleElementIOS(firstArticle);
+        } else {
+            articlePageObject.waitForTitleElement();
+        }
 
         if (Platform.getInstance().isAndroid()) {
-            articlePageObject.waitForTitleElement();
             articlePageObject.addArticleToMyList(folderName);
-        } else {
-            articlePageObject.waitForTitleElementIOS(firstArticle);
+        } else if (lib.Platform.getInstance().isIOS()){
             articlePageObject.addFirstArticleToMySaved();
+        } else {
+            articlePageObject.addArticleToMySaved();
         }
+
+        if (lib.Platform.getInstance().isWeb()) {
+            AuthorizationPageObject authorizationPageObject = new AuthorizationPageObject(driver);
+            authorizationPageObject.clickAuthButton();
+            authorizationPageObject.enterLoginData(login, password);
+            authorizationPageObject.submitForm();
+
+            articlePageObject.waitForTitleElement();
+            if (articlePageObject.getArticleTitle().equals("Central user log in")) {
+                authorizationPageObject.returnAfterAuthError();
+            }
+
+            assertEquals("We are not on the same page after login",
+                    firstArticle,
+                    articlePageObject.getArticleTitle());
+
+        }
+
         articlePageObject.closeArticle();
 
         // Find and add the 2nd article
@@ -100,6 +122,7 @@ public class MyListsTests extends CoreTestCase {
         searchPageObject.initSearchInput();
         searchPageObject.typeSearchLine("Appium");
         searchPageObject.clickByArticleWithSubstring(secondArticle);
+
         if (Platform.getInstance().isAndroid()) {
             articlePageObject.addArticleToMyExistingList(folderName);
         } else {
@@ -113,6 +136,7 @@ public class MyListsTests extends CoreTestCase {
         // Open folder with articles and delete one
 
         NavigationUI navigationUI = NavigationUIFactory.get(driver);
+        navigationUI.openNavigation();
         navigationUI.clickMyLists();
 
         MyListsPageObject myListsPageObject = MyListPageObjectFactory.get(driver);

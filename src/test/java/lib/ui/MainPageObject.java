@@ -45,7 +45,7 @@ public class MainPageObject {
         } catch (ElementNotInteractableException e) {
             System.out.println("ElementNotInteractableException: " + locator);
         }
-        System.out.println(locator);
+        System.out.println("Clicked: " + locator);
         return element;
     }
 

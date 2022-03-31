@@ -9,6 +9,7 @@ abstract public class MyListsPageObject extends MainPageObject {
             FOLDER_BY_NAME_TPL,
             ARTICLE_BY_TITLE_TPL,
             REMOVE_FROM_SAVED_BUTTON,
+            ADD_TO_SAVED_BUTTON,
             DELETE_ICON_IOS;
 
     private static String getFolderXpathByName(String folderName) {
@@ -23,7 +24,11 @@ abstract public class MyListsPageObject extends MainPageObject {
         return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", title);
     }
 
-    public MyListsPageObject (RemoteWebDriver driver) {
+    private static String getSaveLocatorButtonByTitle(String title) {
+        return ADD_TO_SAVED_BUTTON.replace("{TITLE}", title);
+    }
+
+    public MyListsPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 
@@ -63,14 +68,17 @@ abstract public class MyListsPageObject extends MainPageObject {
         if (Platform.getInstance().isAndroid() || Platform.getInstance().isIOS()) {
             this.swipeElementToLeft(
                     articleXpath,
-                    "Cannot find added article and swipe it" );
+                    "Cannot find added article and swipe it");
 
         } else {
             String remove_locator = getLocatorButtonByTitle(articleTitle);
+            String save_locator = getSaveLocatorButtonByTitle(articleTitle);
             this.waitForElementAndClick(remove_locator,
-                    "Cannot click button to remove article from Saved",
+                    "Cannot click button to remove article from Saved: " + remove_locator,
                     10);
-            Thread.sleep(1000);
+            this.waitForElementPresent(save_locator,
+                    "'Add to saved' button is still not shown",
+                    10);
             driver.navigate().refresh();
         }
 
