@@ -4,6 +4,7 @@ import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class SearchTests extends CoreTestCase {
@@ -48,7 +49,7 @@ public class SearchTests extends CoreTestCase {
         searchPageObject.typeSearchLine(searchLine);
         int amountOfSearchResults = searchPageObject.getAmountOfFoundArticles();
 
-        assertTrue("Not enough searchLine result items was found", amountOfSearchResults > 0);
+        Assert.assertTrue("Not enough searchLine result items was found", amountOfSearchResults > 0);
 
     }
 

@@ -1,12 +1,12 @@
 package tests;
 
 import lib.CoreTestCase;
-import lib.Platform;
 import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import lib.ui.factories.MyListPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MyListsTests extends CoreTestCase {
@@ -51,7 +51,7 @@ public class MyListsTests extends CoreTestCase {
                 authorizationPageObject.returnAfterAuthError();
             }
 
-            assertEquals("We are not on the same page after login",
+            Assert.assertEquals("We are not on the same page after login",
                     article,
                     articlePageObject.getArticleTitle());
 
@@ -109,7 +109,7 @@ public class MyListsTests extends CoreTestCase {
                 authorizationPageObject.returnAfterAuthError();
             }
 
-            assertEquals("We are not on the same page after login",
+            Assert.assertEquals("We are not on the same page after login",
                     firstArticle,
                     articlePageObject.getArticleTitle());
 

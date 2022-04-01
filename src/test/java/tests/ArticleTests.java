@@ -5,6 +5,7 @@ import lib.ui.ArticlePageObject;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ArticleTests extends CoreTestCase {
@@ -26,7 +27,7 @@ public class ArticleTests extends CoreTestCase {
             articleTitle = articlePageObject.getArticleTitle();
         }
 
-        assertEquals(
+        Assert.assertEquals(
                 "Unexpected title",
                 "Appium",
                 articleTitle);
