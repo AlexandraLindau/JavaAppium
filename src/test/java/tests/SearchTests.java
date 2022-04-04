@@ -1,7 +1,8 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
-import lib.Platform;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Assert;
@@ -10,6 +11,11 @@ import org.junit.Test;
 public class SearchTests extends CoreTestCase {
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Check the placeholder of the search filed")
+    @Description("We check that the placeholder of the search field corresponds to the expected one")
+    @Step("Starting testSearchFieldPlaceholder")
+    @Severity(value = SeverityLevel.MINOR)
     public void testSearchFieldPlaceholder() throws Exception {
 
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
@@ -20,6 +26,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Find article in the search results")
+    @Description("Search the article and check it is presents in the search results")
+    @Step("Starting testSearch")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testSearch() {
 
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
@@ -30,6 +41,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Cancel search")
+    @Description("Initialize searching and then cancel it")
+    @Step("Starting testCancelSearch")
+    @Severity(value = SeverityLevel.MINOR)
     public void testCancelSearch() {
 
         SearchPageObject searchPageObject = SearchPageObjectFactory.get(driver);
@@ -40,6 +56,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Valid search request")
+    @Description("Make a valid search request and check that the article is present in the search results")
+    @Step("Starting testAmountOfNotEmptySearch")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testAmountOfNotEmptySearch() {
 
         String searchLine = "Linkin Park Diskography";
@@ -54,6 +75,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Invalid search request")
+    @Description("Make an invalid search request and check that the search result is empty")
+    @Step("Starting testAmountOfEmptySearch")
+    @Severity(value = SeverityLevel.MINOR)
     public void testAmountOfEmptySearch() {
 
         String searchLine = "werververv3r4ervre24";
@@ -67,6 +93,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Init and cancel search")
+    @Description("Start searching an article and then cancel it. Verify the matching articled disappear from the search results")
+    @Step("Starting testSearchResultsAndCancel")
+    @Severity(value = SeverityLevel.MINOR)
     public void testSearchResultsAndCancel() {
 
         String searchLine = "Kotlin";
@@ -85,6 +116,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Search articles by a valid value")
+    @Description("Start searching articles. Check that the results contain the searched text")
+    @Step("Starting testSearchResultsContainSearchInput")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testSearchResultsContainSearchInput() throws Exception {
 
         String searchLine = "Java";
@@ -99,6 +135,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search")})
+    @DisplayName("Search articles by a valid value")
+    @Description("Start searching articles. Check that the results contain the expected articles with expected description")
+    @Step("Starting testSearchResultsContainTitleAndDescription")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testSearchResultsContainTitleAndDescription() {
 
         String searchLine = "Java";

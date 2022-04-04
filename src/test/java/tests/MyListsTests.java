@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
@@ -9,6 +11,8 @@ import lib.ui.factories.MyListPageObjectFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+@Severity(value = SeverityLevel.NORMAL)
+
 public class MyListsTests extends CoreTestCase {
 
     private final static String folderName = "Learning programming";
@@ -16,6 +20,10 @@ public class MyListsTests extends CoreTestCase {
     private final static String password = "Lindau7377!";
 
     @Test
+    @Features(value = {@Feature(value = "Reading list"),@Feature(value = "Article")})
+    @DisplayName("Save and delete one article form 'Saved'")
+    @Description("We save one article to 'Saved' and then delete it.  Check that it has been deleted")
+    @Step("Starting testSaveFirstArticleToMyList")
     public void testSaveFirstArticleToMyList() throws Exception {
 
         String article = "Appium";
@@ -71,6 +79,10 @@ public class MyListsTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value = "Reading list"),@Feature(value = "Article")})
+    @DisplayName("Save two articles and delete one article form 'Saved'")
+    @Description("We save two articles to 'Saved' and then delete one of them.  Check that the other article is still in 'Saved'")
+    @Step("Starting testSaveTwoArticlesAndDeleteOne")
     public void testSaveTwoArticlesAndDeleteOne() throws Exception {
 
         String firstArticle = "Kotlin (programming language)";

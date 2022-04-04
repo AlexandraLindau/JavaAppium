@@ -52,6 +52,7 @@ abstract public class ArticlePageObject extends MainPageObject {
 
     public String getArticleTitle() throws Exception {
         WebElement titleElement = waitForTitleElement();
+        screenshot(this.takeScreenshot("article_title"));
         return titleElement.getText();
     }
 
